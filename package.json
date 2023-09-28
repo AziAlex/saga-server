@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "json-server --watch db/db.json --port 3001"
+  },
   "dependencies": {
     "json-server": "^0.17.3"
   }
