@@ -1,14 +1,20 @@
-const jsonServer = require('json-server')
-const cors = require('cors')
+const express = require('express');
+const mongoose = require('mongoose');
+const routes = require('./src/routes');
+const cors = require('cors');
 
-const server = jsonServer.create()
-const router = jsonServer.router('db/db.json')
-const middlewares = jsonServer.defaults()
+require('dotenv').config();
 
-server.use(middlewares)
-server.use(router)
-server.use(cors)
+const mongoString = process.env.DATABASE_URL;
+const app = express();
+const PORT = 3001;
 
-server.listen(3001, () => {
-    console.log('JSON Server is running')
+mongoose.connect(mongoString).then(() => console.log('Connected!'));
+
+app.use(express.json());
+app.use(cors());
+app.use("/api", routes)
+
+app.listen(PORT, () => {
+    console.log(`Server Started at ${PORT}`)
 })
